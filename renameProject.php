@@ -1,4 +1,5 @@
 <?php
+try{
 $q = $_REQUEST['name'];
 $q1= $_REQUEST['q'];
 for ($i=1;$i<strlen($q);$i++){
@@ -21,3 +22,5 @@ for ($j=0;$j<$i;$j++){
 	fwrite($file,$project_array[$j]);}
 }
 fclose($file);
+}
+catch (Exception $e){echo "Error ".$e;}

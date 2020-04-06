@@ -1,13 +1,17 @@
 <?php
-session_start();									//початок сесії
+session_start();																		//початок сесії
+try{									
 $login=$_POST['log'];
-$password=$_POST['pass'];
-$conn = new mysqli("vatra", "root","", "users");	//підключення до БД користувачів
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$sql = "SELECT * FROM `users` WHERE `login`='$login' AND `password`='$password'";		//запит на введені логін і пароль
-$result = $conn->query($sql);
+$password=$_POST['pass'];	
+$servername="vatra";
+$dbname="users";
+$username="root";
+try{
+$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, "");				//підключення до БД користувачів
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$stmt = $conn->prepare("SELECT * FROM `users` WHERE `login`='$login' AND `password`='$password'");		//запит на введені логін і пароль
+$stmt->execute();	
+$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 if ($result->num_rows > 0) {						//обробка результатів
     while($row = $result->fetch_assoc()) {
         if(($row['login']==$login)&&($row['password']==$password)){						//якщо логін і пароль співпадають, то зазначаються дані користувача у сесії
@@ -18,4 +22,9 @@ if ($result->num_rows > 0) {						//обробка результатів
 		}
 	}
 }
+catch(PDOException $er) {
+    echo "Error: " . $er->getMessage();
+}
 else{header('Location: php25/index.php');}
+}
+catch (Exception $e){echo "Error ".$e;}

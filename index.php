@@ -9,6 +9,7 @@
 </div>
 <script>
 function createproject() {
+	try {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -17,8 +18,10 @@ function createproject() {
   };
   xhttp.open("GET", "createProject.php?q="+document.getElementById("txt").value, true);
   xhttp.send();
+	}catch(err){alert(err.message);}
 }
 function loadDoc(){
+	try {
 	var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -42,8 +45,10 @@ function loadDoc(){
   };
   xhttp.open("GET", "load.php?q="+document.getElementById("txt").value, true);
   xhttp.send();
+  }catch(err){alert(err.message);}
 }
 function deleteProject1(str){
+	try{
 	var a = JSON.stringify(document.getElementById("hide").innerHTML);
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -53,8 +58,10 @@ function deleteProject1(str){
 };
 	xhttp.open("GET", "delete1.php?q="+document.getElementById('hide').innerHTML+"&name="+str, true);
 	xhttp.send();
+	}catch(err){alert(err.message);}
 }
 function renameProject1(str){
+	try{
 	var a = JSON.stringify(document.getElementById("hide").innerHTML);
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -65,8 +72,10 @@ function renameProject1(str){
 	var strd="d"+str;
 	xhttp.open("GET", "renameProject.php?name="+str+"&q="+document.getElementById(strd).value, true);
 	xhttp.send();
+	}catch(err){alert(err.message);}
 }
 function deleteTask(task){
+	try{
 	var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -75,5 +84,6 @@ function deleteTask(task){
   };
   xhttp.open("GET", "deleteTask.php?q="+task, true);
   xhttp.send();
+}catch(err){alert(err.message);}
 }
 </script>

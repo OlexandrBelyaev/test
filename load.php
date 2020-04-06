@@ -23,6 +23,7 @@ class Project {
 	  $this->tasks=array_splice($proj1->tasks,$q,1);
   }
 }
+try {
 $file=fopen('memory.txt','r');
 $i=0;
 while(!feof($file)){
@@ -32,4 +33,5 @@ while(!feof($file)){
 }
 fclose($file);
 print_r(json_encode($project_array));
+}catch(Exception $e){echo "Error ".$e;}
 ?>

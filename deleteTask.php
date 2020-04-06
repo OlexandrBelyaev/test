@@ -1,4 +1,5 @@
 <?php
+try{
 $q=$_REQUEST['q'];
 $i=0;
 $file=fopen('memory.txt','r');
@@ -20,3 +21,5 @@ for ($j=0;$j<$i;$j++){
 	fwrite($file, $project_array[$j]."\n");
 }
 fclose($file);
+}
+catch (Exception $e){echo "Error ".$e;}
